@@ -1,3 +1,5 @@
+'use strict';
+
 let express = require('express');
 let path = require('path');
 let favicon = require('serve-favicon');
@@ -5,7 +7,7 @@ let logger = require('morgan');
 let cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
 
-let Member = require('./lib/models/member');
+let memberController = require('./lib/controllers/member_controller');
 
 
 let app = express();
@@ -22,26 +24,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', (req, res, next) => {
-  Member.find({}, (err, members) => {
-    res.send({data: members});
-  });
-});
-
-app.get('/save', (req, res, next) => {
-  let newMember = new Member({
-    "user_id" : 3,
-    "full_name" : "Alex",
-    "username" : "alex@yahoo.co.id",
-    "password" : "12345"
-  });
-  newMember.save((err) => {
-    if(err){
-      next(err);
-    }
-    res.send('user created');
-  });
-});
+app.get('/', memberController.getMembers);
+app.get('/:user_id', memberController.getMember);
+app.post('/save', memberController.saveMember);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
