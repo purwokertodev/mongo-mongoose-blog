@@ -37,7 +37,6 @@ app.get('/save', (req, res, next) => {
   });
   newMember.save((err) => {
     if(err){
-      console.log('errrrrrrrrrrrrrrr'+err);
       next(err);
     }
     res.send('user created');
