@@ -27,6 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', memberController.getMembers);
 app.get('/:user_id', memberController.getMember);
 app.post('/save', memberController.saveMember);
+app.post('/create_post', memberController.createPost);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
