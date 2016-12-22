@@ -9,11 +9,11 @@ block content
         div.alert.alert-info
           h4 #{data.title}
           p #{data.content}
-          p #{data.author}
+          p #{data.author.full_name}
           p #{data.created_at}
       else
         div.alert.alert-warning
           h4 #{data.title}
           p #{data.content}
-          p #{data.author}
+          p #{data.author.full_name}
           p #{data.created_at}
