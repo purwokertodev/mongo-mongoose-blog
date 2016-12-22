@@ -26,6 +26,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', indexController.getPosts);
+app.get('/signup', indexController.getSignUpPage);
+app.get('/login', indexController.getLoginPage);
 app.get('/profile/:member_id', memberController.getMember);
 app.post('/profile/save', memberController.saveMember);
 app.post('/profile/post', memberController.createPost);
