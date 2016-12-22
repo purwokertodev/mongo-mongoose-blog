@@ -24,10 +24,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', memberController.getMembers);
-app.get('/:user_id', memberController.getMember);
-app.post('/save', memberController.saveMember);
-app.post('/create_post', memberController.createPost);
+app.get('/', (req, res, next) => {
+  res.send('yeah....');
+});
+app.get('/profile/:member_id', memberController.getMember);
+app.post('/profile/save', memberController.saveMember);
+app.post('/profile/post', memberController.createPost);
+app.get('/profile/post/:member_id', memberController.getPostByMember);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
