@@ -8,13 +8,14 @@ let cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
 
 let memberController = require('./lib/controllers/member_controller');
+let indexController = require('./lib/controllers/index_controller');
 
 
 let app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'pug');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -24,9 +25,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', (req, res, next) => {
-  res.send('yeah....');
-});
+app.get('/', indexController.getPosts);
 app.get('/profile/:member_id', memberController.getMember);
 app.post('/profile/save', memberController.saveMember);
 app.post('/profile/post', memberController.createPost);
