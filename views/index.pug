@@ -9,11 +9,15 @@ block content
         div.alert.alert-info
           h4 #{data.title}
           p #{data.content}
-          p #{data.author.full_name}
-          p #{data.created_at}
+          p
+            span.label.label-primary By #{data.author.full_name}
+            img.img-rounded(src=data.author.profile_picture, widht="40", height="40")
+          p on #{data.created_at}
       else
         div.alert.alert-warning
           h4 #{data.title}
           p #{data.content}
-          p #{data.author.full_name}
-          p #{data.created_at}
+          p
+            span.label.label-primary By #{data.author.full_name}
+            img.img-rounded(src=data.author.profile_picture, widht="40", height="40")
+          p on #{data.created_at}
