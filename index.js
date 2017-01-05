@@ -10,6 +10,14 @@ let bodyParser = require('body-parser');
 let memberController = require('./lib/controllers/member_controller');
 let indexController = require('./lib/controllers/index_controller');
 
+let passport = require('./lib/config/passport');
+
+//require for passport
+
+let ensure = require('connect-ensure-login');
+let flash = require('connect-flash');
+let session = require('express-session');
+
 
 let app = express();
 
@@ -25,10 +33,17 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//require for passport/ login
+app.use(session({secret: 'mymongoapp'}));
+app.use(passport.init());
+app.use(passport.session());
+app.use(flash());
+
 app.get('/', indexController.getPosts);
 app.get('/signup', indexController.getSignUpPage);
 app.get('/login', indexController.getLoginPage);
-app.get('/profile/:member_id', memberController.getMember);
+app.post('/login', passport.auth());
+app.get('/profile', ensure.ensureLoggedIn(), memberController.getPostByMember);
 app.post('/profile/save', memberController.saveMember);
 app.post('/profile/post', memberController.createPost);
 app.get('/profile/post/:member_id', memberController.getPostByMember);

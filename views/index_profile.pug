@@ -1,0 +1,23 @@
+extends layout_profile
+
+block content
+  div.panel-heading
+    h3= title
+  div.panel-body
+    each data, i in posts
+      if i % 2 == 0
+        div.alert.alert-info
+          h4 #{data.title}
+          p #{data.content}
+          p
+            span.label.label-primary By #{data.author.full_name}
+            img.img-rounded(src=data.author.profile_picture, widht="40", height="40")
+          p on #{data.created_at}
+      else
+        div.alert.alert-warning
+          h4 #{data.title}
+          p #{data.content}
+          p
+            span.label.label-primary By #{data.author.full_name}
+            img.img-rounded(src=data.author.profile_picture, widht="40", height="40")
+          p on #{data.created_at}

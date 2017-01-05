@@ -4,3 +4,19 @@ block content
   div.panel-heading
     h3= title
   div.panel-body
+    #message
+    if message
+      div.alert.alert-danger
+        #{message}
+    form.form-horizontal(method='post' action='/login')
+      div.form-group
+        label.control-label.col-sm-2 Username :
+        div.col-sm-4
+          input.form-control(type='email' name='email' placeHolder='Your email')
+      div.form-group
+        label.control-label.col-sm-2 Password :
+        div.col-sm-4
+          input.form-control(type='password' name='password' placeHolder='Your password')
+      div.form-group
+        div.col-sm-4.col-sm-offset-2
+          button.btn.btn-primary(type='submit') Login
